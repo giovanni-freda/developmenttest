@@ -1,0 +1,93 @@
+
+def acceptanceBaseUrl = 'baseUrl'
+def localWebDriver = 'localWebDriver'
+
+ext {
+    // The drivers we want to use
+    drivers = []
+
+    if (project.ext.has(localWebDriver)) {
+        drivers = ['chromeLocal', 'firefoxLocal', 'internetExplorerLocal']
+    }
+    else {
+        drivers = ['chrome', 'firefox', /*'safari',*/ 'internetExplorer']
+    }
+}
+
+repositories {
+    maven { url 'http://devrepositoryd00.pvi.com:8181/content/FOSS' }
+}
+
+apply plugin: 'groovy'
+
+dependencies {
+    groovy "org.codehaus.groovy:groovy-all:2.2.2"
+    testCompile "org.codehaus.groovy:http-builder:0.5.2"
+
+    def gebVersion = "0.9.3"
+    def seleniumVersion = "2.41.0"
+
+    // If using Spock, need to depend on geb-spock
+    testCompile "org.gebish:geb-spock:0.9.3"
+    testCompile "org.spockframework:spock-core:0.7-groovy-2.0"
+
+    // Need a driver implementation
+    testCompile "org.seleniumhq.selenium:selenium-chrome-driver:2.41.0"
+    testRuntime "org.seleniumhq.selenium:selenium-support:2.41.0"
+    testCompile "org.seleniumhq.selenium:selenium-firefox-driver:2.41.0"
+    testCompile "org.seleniumhq.selenium:selenium-ie-driver:2.41.0"
+}
+
+configurations {
+    testCompile.transitive = true
+}
+
+sourceSets {
+    test {
+        groovy {
+            srcDirs = ["test/groovy"]
+        }
+        resources {
+            srcDirs = ["test/resources"]
+        }
+    }
+}
+
+def browserWidth = 'browserWidth'
+def browserHeight = 'browserHeight'
+
+
+drivers.each { driver ->
+    if (project.ext.has(acceptanceBaseUrl)) {
+        task "${driver}Test"(type: Test) {
+            reports {
+                html.destination = reporting.file("$name/tests")
+                junitXml.destination = file("$buildDir/test-results/$name")
+            }
+
+            outputs.upToDateWhen { false }  // Always run tests
+
+            systemProperty "geb.build.reportsDir", reporting.file("$name/geb")
+            systemProperty "geb.env", driver
+            systemProperty "geb.build.baseUrl", project.ext.baseUrl
+
+            if (project.ext.has(browserWidth) && project.ext.has(browserHeight)) {
+                systemProperty "geb.browser.width", project.ext.browserWidth
+                systemProperty "geb.browser.height", project.ext.browserHeight
+            }
+        }
+    }
+}
+
+test {
+    if (project.ext.has(acceptanceBaseUrl)) {
+        dependsOn drivers.collect { tasks["${it}Test"] }
+    }
+    enabled = false
+}
+
+/**
+ * Remove the groovy plugin build task because this will interfere with the Perceptive JSPluginTask
+ * We only really need the groovy Test task
+ */
+tasks.remove(build)

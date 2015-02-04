@@ -1,0 +1,30 @@
+# Gradle
+.gradle
+
+# Generic builds
+build/
+bin/
+
+# Eclipse
+.classpath
+.project
+.settings/
+
+# IntelliJ Idea and Webstorm
+*.iml
+.idea/
+
+# Git
+*.orig
+
+# Javascript builds
+build_working/
+build_output/
+.jshintrc
+
+#Bower
+bower_components/
+.exclude
+
+#Node
+node_modules/
