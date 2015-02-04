@@ -1,0 +1,25 @@
+﻿<div id="mainToolbarView" class="primary-toolbar">
+    <div class="section-left toolbarSection">
+        <button id='drawerClose' class="drawerClose icon-left_pane" title="Close Drawer"></button>
+    </div>
+
+    <div class="section-center toolbarSection">
+        <div class="toolbar-group">
+            {{#each centerButtons}}
+            <button title="{{this.title}}" id="{{this.id}}" {{#if this.class}}class='{{this.class}}'{{/if}} {{#if this.disabled}}disabled='disabled'{{/if}}><span class="{{this.icon}}"/></button>
+            {{/each}}
+        </div>
+        <div class="divider"></div>
+            <div id="alert-containerid" class="alert-container">
+                <div id="alert-location-container">
+                </div>
+            </div>
+    </div>
+
+    <div class="section-right toolbarSection">
+        {{#each rightButtons}}
+        <button title="{{this.title}}" id="{{this.id}}" {{#if this.class}}class='{{this.class}}'{{/if}} {{#if this.disabled}}disabled='disabled'{{/if}}><span class="{{this.icon}}"/></button>
+        {{/each}}
+    </div>
+
+</div>

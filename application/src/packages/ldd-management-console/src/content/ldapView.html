@@ -1,0 +1,97 @@
+
+<div id="ldapview" class="ldapstyle">
+  
+ <div id="ldapform">
+
+	<div class="checkbox">
+       <input type="checkbox" name="enabled" id="enabled" {{enabled}} ></input>
+       <label for="enabled"> Enable LDAP Authentication</label>
+   	</div>
+   	
+   	<div class="ldapstyle"> 
+
+	
+	<div class="control-group inline ...">
+	   	<label>LDAP Server settings:</label>
+	</div>
+
+
+
+	<div class="ldapstyle">
+	
+	<div class="checkbox">
+       <input type="checkbox" name="secure" id="secure" {{secure}} ></input>
+
+       <label for="secure"> Use Secure Connection. (SSL/TLS)</label>
+   	</div>	
+	<div class="control-group inline left-align-label">
+   		<label for="server">Server Address</label>
+   		<input type="text" id="server" name="server" value={{server}} ></input>    
+   	</div>
+   	<div class="control-group inline left-align-label">
+		<label for="port">Server Port:</label>
+   		<input type="text" id="port" name="port" value={{port}} ></input>	
+   		<label>Default:389</label>
+   	</div>
+   	<div class="control-group inline left-align-label">
+		<label for="usersearchfilter">User Search Filter:</label>
+   		<input type="text" id="usersearchfilter" name="usersearchfilter" value={{usersearchfilter}} ></input>
+   		</div>
+   	<div class="control-group inline left-align-label">
+		<label for="usersearchbase">User Search Base:</label>
+   		<input type="text" id="usersearchbase" name="usersearchbase" value={{usersearchbase}} ></input>
+   	</div>
+   	<div class="control-group inline left-align-label">
+		<label for="groupsearchfilter">Group Search Filter:</label>
+   		<input type="text" id="groupsearchfilter" name="groupsearchfilter" value={{groupsearchfilter}} ></input>
+   	</div>
+   	<div class="control-group inline left-align-label">
+		<label for="groupsearchbase">Group Search Base:</label>
+   		<input type="text" id="groupsearchbase" name="groupsearchbase" value={{groupsearchbase}} ></input>
+   	</div>
+    
+   	<div class="control-group inline left-align-label">
+		<label for="groupidentifier">Group Identifier:</label>
+   		<input type="text" id="groupidentifier" name="groupidentifier" value={{groupidentifier}} ></input>
+   	</div>
+
+   	<div class="control-group inline left-align-label">
+		<label for="memberofgroups">Member of Groups:</label>
+   		<input type="text" id="memberofgroups" name="memberofgroups" value={{memberofgroups}} ></input>
+	</div>
+
+  <div>
+      <div>
+        <label>Authentication Mode:</label>
+      </div>      
+      <div class="radio">
+        <input type="radio" id="radio_id_1" name="radio" value="radio_value_1"/>
+        <label for="radio_id_1">Anonymous</label>
+      </div>
+      <div class="radio">
+         <input type="radio" id="radio_id_2" name="radio" value="radio_value_2"/>
+         <label for="radio_id_2">Username</label>
+         <input type="text" id="username" name="username" value={{username}} ></input>
+         <label for="password">Password:</label>
+         <input type="password" id="password" name="password" value={{password}} ></input>
+      </div>
+  </div>
+
+   	<div class="control-group inline left-align-label">
+		  <label for="searchbase">Search Base:</label>
+   		<input type="text" id="searchbase" name="searchbase" value={{searchbase}} ></input>
+	  </div>
+    
+    <br/>
+
+    <button id="testsettings">Test Settings</button>
+    <button id="ldapsave">Save Settings</button>
+    <button id="cancelldapsettings">Cancel</button>
+</div>
+
+</div>
+
+
+</div>
+
+</div>

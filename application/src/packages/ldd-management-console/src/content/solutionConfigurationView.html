@@ -1,0 +1,17 @@
+<div id="solutionsConfigurationView">
+    <div id="configurationListViewPort">
+        <div id="configurationList">
+            {{#each rows}}
+            <div class='solution-config-input'>
+                <div class='solution-config-item-name'>{{{name}}}</div>
+                {{{htmlString}}}
+            </div>
+            {{/each}}
+        </div>
+    </div>
+    <div id="solutionConfigButtons">
+        <button id="configurationApply">Apply</button>
+        <button id="configurationReset">Reset</button>
+    </div>
+    
+</div>

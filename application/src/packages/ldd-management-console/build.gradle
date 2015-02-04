@@ -1,0 +1,55 @@
+import groovy.json.JsonSlurper
+
+apply plugin:'eclipse'
+
+eclipse {
+	project {
+		name = 'LddManagementConsole'
+	}
+}
+
+buildscript {
+	repositories {
+		maven { url "http://devrepositoryd00.pvi.com:8181/content/FOSS_Internal" }
+		maven { url "http://devrepositoryd00.pvi.com:8181/content/FOSS_External" }
+		maven { url "http://devrepositoryd00.pvi.com:8181/content/Perceptive_Internal" }
+        maven { url 'http://devrepositoryd00.pvi.com:8181/content/FOSS' }
+	}
+	dependencies {
+		classpath(group: 'com.perceptivesoftware', name: 'JSBuildPlugin', version: '0.9.+')
+        classpath(group: 'com.perceptivesoftware', name: 'js-release', version: '0.4.+')
+	}
+}
+
+apply from: './gradle/selenium.gradle'
+apply plugin: 'JSBuildPlugin'
+apply plugin: 'js-release'
+apply plugin: 'idea'
+
+def buildNumber = 0
+def env = System.getenv()
+buildNumber = env.BUILD_NUMBER?.toInteger()
+if (buildNumber == null) {
+	buildNumber = 0
+}
+
+project.jsConfig{
+	sourceDir = "src"
+	buildToolsDir = "build"
+	buildWorkingDir = "build_working"
+	buildOutputDir = "build_output"
+	libraryName = "ldd-management-console"
+	copySourceDestination = "${buildWorkingDir}/packages/${libraryName}"
+    buildToolsVersion = "0.1.0"
+
+    def packageInfo = new JsonSlurper().parseText(file('package.json').text)
+    buildVersion = "${packageInfo['version']}+${buildNumber}"
+}
+
+project.jsRelease{
+	projectName = "ldd-management-console"
+	jobName = env.JobName
+	artifactName = env.Artifact
+}
+
+acceptance.dependsOn test
