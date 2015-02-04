@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+        <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="white" />
+
+        <!--[if IE]>
+            <link rel="stylesheet" type="text/css" href="packages/shell/themes/base/ie.css" />
+        <![endif]-->
+        <!--[if IE 9]>
+            <link rel="stylesheet" type="text/css" href="packages/shell/themes/base/ie9.css" />
+        <![endif]-->
+
+        <link rel="shortcut icon" type="image/ico" href="packages/shell/src/themes/base/img/favicon.ico"/>
+        <link rel="apple-touch-icon" href="packages/shell/src/themes/base/img/iphone-InteractWeb-icon.png"/>
+        <link rel="apple-touch-startup-image" href="packages/shell/src/themes/base/img/Startup.png" />
+        <script>
+            var less = {
+                relativeUrls: true
+            };
+            // In IE9, window.console does not exist unless F12 tools are open.
+            // In addition, if F12 tools ARE open, typeof console.log/error/etc returns object instead of function, which is problematic for function binding
+            // See http://whattheheadsaid.com/2011/04/internet-explorer-9s-problematic-console-object
+            if (!(window.console && window.console.log)) {
+                window.console = {};
+                window.console.log = window.console.error = function() {};
+            } else if (window.console && window.console.log && typeof window.console.log === 'object') {
+                ['log', 'error'].forEach(function(fn) {
+                    var proxy = window.console[fn];
+                    window.console[fn] = function() {
+                        proxy([].slice.call(arguments));
+                    }
+                });
+            }
+        </script>
+        <script type="text/javascript" src="lib/require.js"></script>
+
+        <script type="text/javascript">
+            requirejs.onError = function (err) {
+                console.log('Error of type: "' + err.requireType + '"\n\nRequireJS could not load ' + err.requireModules);
+                err.stack && console.log(err.stack);
+            };
+
+            require(['requireConfig'], function () {
+                require(['packages/core/core'], function() {
+                    require(['packages/core/src/app'], function(App) {
+                        new App();
+                    });
+                });
+            });
+        </script>
+
+        <link rel="stylesheet" type="text/css" href="packages/shell/src/themes/base/print.css" media="print" />
+    </head>
+    <body id="body">
+        <div id="container" class="container"></div>
+    </body>
+</html>

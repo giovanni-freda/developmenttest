@@ -1,0 +1,13 @@
+#Intellij Idea
+*.iml
+.idea/
+
+#Gradle
+build/
+.gradle/
+
+#Bower
+bower_components/
+.exclude
+
+src/packages/

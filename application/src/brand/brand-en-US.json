@@ -1,0 +1,8 @@
+{
+	"brand": {
+        "productName": "Perceptive Evolution",
+        "loginLogo": "packages/shell/src/themes/base/shellComponents/img/fake_web_logo.png",
+        "loginLogoMobile": "packages/shell/src/themes/base/shellComponents/img/fake_mobile_logo.png",
+        "headerLogo": "packages/shell/src/themes/base/shellComponents/img/perceptivelogo.png"
+	}
+}
